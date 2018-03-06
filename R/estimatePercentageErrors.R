@@ -23,7 +23,9 @@
 #' @export estimatePercentageErrors
 
 estimatePercentageErrors <- function(x, conf.level = 0.95, coord.flip = FALSE, digits = 5) {
-  #total <- sum(x$cases)
+  if (!is.data.frame(x))
+   stop("input must be a data.frame")
+  
   percentage <- c()
   lo <- c()
   hi <- c()
