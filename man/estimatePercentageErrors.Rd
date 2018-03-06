@@ -8,7 +8,7 @@ estimatePercentageErrors(x, conf.level = 0.95, coord.flip = FALSE,
   digits = 5)
 }
 \arguments{
-\item{x:}{The data frame containing colums category, cases and total.}
+\item{x:}{A data frame containing colums category, cases and total as input.}
 
 \item{conf.level:}{Confidence level for the returned confidence interval, default 0.95.}
 
@@ -17,7 +17,8 @@ estimatePercentageErrors(x, conf.level = 0.95, coord.flip = FALSE,
 \item{digits:}{Integer indicating the number of decimal places to be used, default 5.}
 }
 \value{
-\code{estimatePercentageErrors} returns a a barplot and table of results.
+\code{estimatePercentageErrors} returns a data frame as the input with columns percentage,
+lo and hi and a bar plot of percentage with errors.
 }
 \description{
 Functions to estimate percentage errors

@@ -5,11 +5,12 @@
 #'
 #' @aliases estimatePercentageErrors
 #'
-#' @param x: The data frame containing colums category, cases and total.
+#' @param x: A data frame containing colums category, cases and total as input.
 #' @param conf.level: Confidence level for the returned confidence interval, default 0.95.
 #' @param coord.flip: Cartesian coordinates with x and y flipped, default FALSE.
 #' @param digits: Integer indicating the number of decimal places to be used, default 5.
-#' @return \code{estimatePercentageErrors} returns a a barplot and table of results.
+#' @return \code{estimatePercentageErrors} returns a data frame as the input with columns percentage,
+#' lo and hi and a bar plot of percentage with errors.
 #' @author Andrey Davydenko, Maxim and Sai Van Cuong from Volgograd State Technical University
 #' @examples
 #'
