@@ -1,5 +1,6 @@
 ---
-pcbars
+authors: Andrey Davydenko, Maxim Shcherbakov and Sai Van Cuong
+date: 06/03/2018
 ---
 
 # pcbars
