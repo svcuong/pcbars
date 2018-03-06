@@ -23,29 +23,30 @@
 #' @export estimatePercentageErrors
 
 estimatePercentageErrors <- function(x, conf.level = 0.95, coord.flip = FALSE, digits = 5) {
+ # check format of input
   if (!is.data.frame(x))
    stop("input must be a data.frame")
-  
+ 
+  # Create a empty vectors
   percentage <- c()
   lo <- c()
   hi <- c()
-
+  # calculate percentage with confidence interval
   for (i in 1:length(x$cases)){
       percentage[i] <-  round(x$cases[i]/x$total[i], digits)
       lo[i] <- round(binom.test(x$cases[i], x$total[i], conf.level = conf.level)$conf.int[1], digits)
       hi[i] <- round(binom.test(x$cases[i], x$total[i], conf.level = conf.level)$conf.int[2], digits)
       }
-
+ # add percentage and lo, hi columns into data frame as input
   x$percentage <- percentage*100
   x$lo <- lo*100
   x$hi <- hi*100
 
-
+ # Create a bar plot with difference options
   dodge <- ggplot2::position_dodge(width = 0.9)
   limits <- ggplot2::aes(ymax = x$hi,
                 ymin = x$lo)
-
-
+  
   p <- ggplot2::ggplot(x, ggplot2::aes(x=x$category, y=x$percentage, fill = x$category))
   p <- p + ggplot2::geom_bar(stat="identity")
   p <- p + ggplot2::theme(axis.text.x=ggplot2::element_text(angle=60, hjust=1))
@@ -57,7 +58,7 @@ estimatePercentageErrors <- function(x, conf.level = 0.95, coord.flip = FALSE, d
   if( coord.flip == TRUE){
    p <- p + ggplot2::coord_flip()
   }
-
+  
   print(p)
   return(x)
 
