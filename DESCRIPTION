@@ -1,0 +1,17 @@
+Package: pcbars
+Type: Package
+Title: Contains tools to estimate percentage errors
+Version: 0.1.0
+Imports: ggplot2
+Authors: Andrey Davydenko, Maxim Shcherbakov and Sai Van Cuong from Volgograd State Technical University
+Maintainer: Sai Van Cuong <svcuonghvktqs@gmail.com>
+Description: Contains tools to measure and visualise the uncertainty around the 
+  percentages used to represent relative frequencies. These are useful
+  when performing descriptive analysis of categorical variables.
+License: GPL-3
+URL: https://github.com/svcuonghvktqs/pcbars
+VignetteBuilder: knitr
+RoxygenNote: 6.0.1
+Encoding: UTF-8
+LazyData: true
+
