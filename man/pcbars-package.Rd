@@ -9,7 +9,7 @@
 \url{https://github.com/svcuonghvktqs/pcbars}.
 }
 \description{
-Contains tools to measure and visualise the uncertainty around the
+Contains tools to measure and visualise the uncertainty around the percentages used to represent relative frequencies. These are useful when performing descriptive analysis of categorical variables.
 }
 \details{
 {\tabular{ll}{ Package: \tab pcbars\cr Type: \tab Package\cr License: \tab GPL3\cr}}
