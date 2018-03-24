@@ -9,6 +9,11 @@
 #' @param conf.level: Confidence level for the returned confidence interval, default 0.95.
 #' @param coord.flip: Cartesian coordinates with x and y flipped, default FALSE.
 #' @param digits: Integer indicating the number of decimal places to be used, default 5.
+#' @param sort: A logical value. If TRUE, the result are sorted by percentage .
+#' @param plotly: A logical value. If TRUE, the grpaph are plotted as plotly object.
+#' @param title: A title for the graph, default "Bar Plot of Percentage with errors".
+#' @param xlab: A title for the x axis, default "Category".
+#' @param ylab: A title for the y axis, default "Percentage".
 #' @return \code{estimatePercentageErrors} returns a data frame as the input with columns percentage,
 #' lo and hi and a bar plot of percentage with errors.
 #' @author Andrey Davydenko, Maxim and Sai Van Cuong from Volgograd State Technical University
@@ -22,11 +27,13 @@
 #' @export
 #' @export estimatePercentageErrors
 
-estimatePercentageErrors <- function(x, conf.level = 0.95, coord.flip = FALSE, digits = 5) {
- # check format of input
+estimatePercentageErrors <- function(x, conf.level = 0.95, coord.flip = FALSE, digits = 5, sort = FALSE,
+                                     plotly = FALSE, title = "Bar Plot of Percentage with errors",
+                                     xlab = "Category", ylab = "Percentage") {
+
   if (!is.data.frame(x))
    stop("input must be a data.frame")
- 
+
   # Create a empty vectors
   percentage <- c()
   lo <- c()
@@ -46,19 +53,26 @@ estimatePercentageErrors <- function(x, conf.level = 0.95, coord.flip = FALSE, d
   dodge <- ggplot2::position_dodge(width = 0.9)
   limits <- ggplot2::aes(ymax = x$hi,
                 ymin = x$lo)
-  
+
   p <- ggplot2::ggplot(x, ggplot2::aes(x=x$category, y=x$percentage, fill = x$category))
   p <- p + ggplot2::geom_bar(stat="identity")
   p <- p + ggplot2::theme(axis.text.x=ggplot2::element_text(angle=60, hjust=1))
   p <- p + ggplot2::geom_errorbar(limits, position = dodge, width = 0.25)
   p <- p + ggplot2::theme(legend.position="none")
   p <- p + ggplot2::theme(plot.title = ggplot2::element_text(hjust = 0.5))
-  p <- p + ggplot2::ggtitle("Bar Plot of Percentage with errors")
-  p <- p + ggplot2::labs(x="Category",y="Percentage")
+  p <- p + ggplot2::ggtitle(title)
+  p <- p + ggplot2::labs(x= xlab, y= ylab)
   if( coord.flip == TRUE){
    p <- p + ggplot2::coord_flip()
   }
-  
+
+  if (plotly == TRUE){
+    p <- plotly::ggplotly(p)
+  }
+
+  if (sort == TRUE){
+    x <- x[order(x$percentage),]
+  }
   print(p)
   return(x)
 
