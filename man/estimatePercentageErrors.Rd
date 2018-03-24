@@ -5,7 +5,9 @@
 \title{Estimate percentage errors}
 \usage{
 estimatePercentageErrors(x, conf.level = 0.95, coord.flip = FALSE,
-  digits = 5)
+  digits = 5, sort = FALSE, plotly = FALSE,
+  title = "Bar Plot of Percentage with errors", xlab = "Category",
+  ylab = "Percentage")
 }
 \arguments{
 \item{x:}{A data frame containing colums category, cases and total as input.}
@@ -15,6 +17,16 @@ estimatePercentageErrors(x, conf.level = 0.95, coord.flip = FALSE,
 \item{coord.flip:}{Cartesian coordinates with x and y flipped, default FALSE.}
 
 \item{digits:}{Integer indicating the number of decimal places to be used, default 5.}
+
+\item{sort:}{A logical value. If TRUE, the result are sorted by percentage .}
+
+\item{plotly:}{A logical value. If TRUE, the grpaph are plotted as plotly object.}
+
+\item{title:}{A title for the graph, default "Bar Plot of Percentage with errors".}
+
+\item{xlab:}{A title for the x axis, default "Category".}
+
+\item{ylab:}{A title for the y axis, default "Percentage".}
 }
 \value{
 \code{estimatePercentageErrors} returns a data frame as the input with columns percentage,
