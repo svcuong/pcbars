@@ -46,15 +46,18 @@ estimatePercentageErrors <- function(x, conf.level = 0.95, coord.flip = FALSE, d
       }
  # add percentage and lo, hi columns into data frame as input
   x$percentage <- percentage*100
-  x$lo <- lo*100
-  x$hi <- hi*100
+  x$Lo <- lo*100
+  x$Hi <- hi*100
  if (sort == TRUE) {
   x$category <-  factor(x$category, levels = unique(x$category)[order(x$percentage)])
  }
+
+  colnames(x)[5] <- paste("Lo", conf.level*100)
+  colnames(x)[6] <- paste("Hi", conf.level*100)
  # Create a bar plot with difference options
   dodge <- ggplot2::position_dodge(width = 0.9)
-  limits <- ggplot2::aes(ymax = x$hi,
-                ymin = x$lo)
+  limits <- ggplot2::aes(ymax =  x[,6],
+                ymin = x[, 5])
 
   p <- ggplot2::ggplot(x, ggplot2::aes(x=x$category, y=x$percentage, fill = x$category))
   p <- p + ggplot2::geom_bar(stat="identity")
@@ -70,16 +73,12 @@ estimatePercentageErrors <- function(x, conf.level = 0.95, coord.flip = FALSE, d
 
   if (plotly == TRUE){
     p <- plotly::ggplotly(p)
-    l <- plotly::plotly_build(p)
-    l$orientation <- "h"
-    l$orientation <- "h"
-    l
   }
 
   if (sort == TRUE){
     x <- x[order(x$percentage),]
   }
+
   print(p)
   return(x)
-
 }
