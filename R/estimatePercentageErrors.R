@@ -30,31 +30,33 @@
 estimatePercentageErrors <- function(x, conf.level = 0.95, coord.flip = FALSE, digits = 5, sort = FALSE,
                                      plotly = FALSE, title = "Bar Plot of Percentage with errors",
                                      xlab = "Category", ylab = "Percentage") {
-
+# Check class of input
   if (!is.data.frame(x))
    stop("input must be a data.frame")
 
-  # Create a empty vectors
+# Create a empty vectors
   percentage <- c()
   lo <- c()
   hi <- c()
-  # calculate percentage with confidence interval
+# calculate percentage with confidence interval
   for (i in 1:length(x$cases)){
       percentage[i] <-  round(x$cases[i]/x$total[i], digits)
       lo[i] <- round(binom.test(x$cases[i], x$total[i], conf.level = conf.level)$conf.int[1], digits)
       hi[i] <- round(binom.test(x$cases[i], x$total[i], conf.level = conf.level)$conf.int[2], digits)
       }
- # add percentage and lo, hi columns into data frame as input
+# add percentage and lo, hi columns into data frame as input
   x$percentage <- percentage*100
   x$Lo <- lo*100
   x$Hi <- hi*100
+# sorting x by percentage for plotting
  if (sort == TRUE) {
   x$category <-  factor(x$category, levels = unique(x$category)[order(x$percentage)])
  }
-
+# Changing column names of Hi and Lo
   colnames(x)[5] <- paste("Lo", conf.level*100)
   colnames(x)[6] <- paste("Hi", conf.level*100)
- # Create a bar plot with difference options
+
+# Create a bar plot with difference options
   dodge <- ggplot2::position_dodge(width = 0.9)
   limits <- ggplot2::aes(ymax =  x[,6],
                 ymin = x[, 5])
